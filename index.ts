@@ -11,7 +11,8 @@ const plugin: IPlugin = {
   async init(ctx: PluginContext) {
     // @ts-ignore
     await init([ctx.bot], {
-      master: ['3530766280']
+      master: ['3530766280'],
+      botAPI: ["getMessage"]
     })
     return {};
   },
