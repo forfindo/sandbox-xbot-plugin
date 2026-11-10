@@ -14,6 +14,6 @@
   "dependencies": {
     "@xopenbot/onebot": "0.0.1",
     "@xopenbot/plugin": "0.0.5",
-    "@xopenbot/sandbox": "file:D:/IDEAProject/qq-bot/packages/sandbox/xopenbot-sandbox-0.0.7.tgz"
+    "@xopenbot/sandbox": "0.0.7"
   }
 }
