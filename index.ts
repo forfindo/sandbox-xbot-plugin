@@ -1,14 +1,26 @@
-import type {IPlugin, PluginContext, ExecResult} from "@xopenbot/plugin";
+import {type ExecResult, definePlugin} from "@xopenbot/plugin";
 import {init, exec, saveCtx} from "@xopenbot/sandbox"
-import type {Bot, MessageEvent} from "@xopenbot/onebot";
+import type {MessageEvent} from "@xopenbot/onebot";
 
-const plugin: IPlugin = {
+const plugin = definePlugin({
   info: {
     name: "sandbox",
     version: "1.0.0",
-    description: "js沙箱"
+    description: "js沙箱",
+    manifest: {
+      depsOn: {
+        sendGroupMessage: 'function',
+        sendPrivateMessage: 'function',
+        getSelfInfo: 'function',
+        deleteMessage: 'function',
+        getMessage: 'function',
+        getGroupList: 'function',
+        getGroupMemberList: 'function',
+        leaveGroup: 'function'
+      }
+    }
   },
-  async init(ctx: PluginContext) {
+  async init(ctx) {
     // @ts-ignore
     await init([ctx.bot], {
       master: ['3530766280'],
@@ -16,19 +28,23 @@ const plugin: IPlugin = {
     })
     return {};
   },
-  loadCommand(ctx: PluginContext) {
+  loadCommand(ctx) {
     return [
       {
         name: "exec",
         pattern: /(?:)/,
         priority: 9,
-        execute: function (input: string, ctx: PluginContext, args?: string[]) {
+        execute: function (input: string, ctx, args?: string[]) {
           const event = ctx.raw_event as MessageEvent;
           exec({
             ...event
           }).then(result => {
             if (result) {
-              (ctx.bot as Bot).sendMessage(event.detail_type, event.group_id as string ?? event.user_id, result)
+              if (event.group_id) {
+                ctx.bot.sendGroupMessage(String(event.group_id), result);
+              } else if (event.user_id) {
+                ctx.bot.sendPrivateMessage(event.user_id, result);
+              }
             }
           })
           return {
@@ -54,6 +70,6 @@ const plugin: IPlugin = {
       }
     ];
   }
-}
+})
 
 export default plugin;
