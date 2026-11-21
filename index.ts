@@ -39,7 +39,7 @@ const plugin = definePlugin({
           exec({
             ...event
           }).then(result => {
-            if (result) {
+            if (result && !(Array.isArray(result) && result.length === 0)) {
               if (event.group_id) {
                 ctx.bot.sendGroupMessage(String(event.group_id), result);
               } else if (event.user_id) {
