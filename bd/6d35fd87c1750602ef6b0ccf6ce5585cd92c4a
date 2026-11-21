@@ -1,0 +1,19 @@
+index.ts
+  s_f936b618190199::t_8a817572646b26 42
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.6",
+  "base_commit_sha": "bd6d35fd87c1750602ef6b0ccf6ce5585cd92c4a",
+  "prompts": {},
+  "sessions": {
+    "s_f936b618190199": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_e039ebc45ffe3fA01FtpNofADf",
+        "model": "deepseek-flash"
+      },
+      "human_author": "forfindo <3530766280@qq.com>"
+    }
+  }
+}
